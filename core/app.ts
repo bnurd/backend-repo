@@ -28,5 +28,5 @@ app.use((err: any, req: Request, res: Response) => {
 });
 
 app.listen(3002, () => {
-  console.log("Server is listening on port 3000");
+  console.log("Server is listening on port 3002");
 });
