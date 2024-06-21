@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node ./core/app.ts",
     "build": "tsc && node ./dist/core/app.js",
-    "build:fb": "concurrently \"npm run build\" \"firebase emulators:start\"",
+    "build:fb": "concurrently  \"npm run build\" \"firebase emulators:start\"",
     "preview": "node ./dist/app.js"
   },
   "dependencies": {

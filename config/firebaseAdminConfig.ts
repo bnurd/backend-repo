@@ -1,4 +1,7 @@
 import firebaseAdmin, { AppOptions, ServiceAccount } from "firebase-admin";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // firebase credentials key file
 /**
