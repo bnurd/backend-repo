@@ -1,4 +1,4 @@
-import firebaseAdmin, { ServiceAccount } from "firebase-admin";
+import firebaseAdmin, { AppOptions, ServiceAccount } from "firebase-admin";
 
 // firebase credentials key file
 /**
@@ -19,10 +19,21 @@ import firebaseAdmin, { ServiceAccount } from "firebase-admin";
 import firebasekey from "./credentials.json";
 
 type TCredential = ServiceAccount;
+const config: AppOptions = {};
 
-const Admin = firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(firebasekey as TCredential),
-});
+if (process.env.USE_EMULATOR === "true") {
+  console.log("Using Firebase Admin SDK with Firestore emulator");
+  process.env["GCLOUD_PROJECT"] = "ebuddy-project";
+  process.env["FIRESTORE_EMULATOR_HOST"] = "localhost:9898";
+  process.env["FIREBASE_AUTH_EMULATOR_HOST"] = "localhost:9099";
+
+  config.projectId = "ebuddy-project";
+} else {
+  console.log("Using Firebase Admin SDK with real cloud resources");
+  config.credential = firebaseAdmin.credential.cert(firebasekey as TCredential);
+}
+
+const Admin = firebaseAdmin.initializeApp(config);
 
 export const db = Admin.firestore();
 
